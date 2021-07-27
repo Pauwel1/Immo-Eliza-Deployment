@@ -19,5 +19,3 @@ class get_parameters():
             response["postalCode"] = jsonify(self.__postalCode)
         else:
             return jsonify({"Warning": "Postal code exists of 4 characters"})
-
-    
