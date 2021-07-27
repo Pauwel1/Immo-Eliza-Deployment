@@ -11,11 +11,11 @@ class get_parameters():
     def area(self):
         self.__area = parser.parse_args().get("area", "None")
         if self.__area:
-            response["area"] = jsonify(self.__area)
+            response["area"] = self.__area
         
     def postal_code(self):
         self.__postalCode = parser.parse_args().get("postalCode", "None")
         if len(self.__postalCode) == 4:
-            response["postalCode"] = jsonify(self.__postalCode)
+            response["postalCode"] = self.__postalCode
         else:
-            return jsonify({"Warning": "Postal code exists of 4 characters"})
+            return jsonify({"Warning": "Postal code should exist of 4 characters"})
