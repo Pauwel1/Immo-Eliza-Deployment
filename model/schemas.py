@@ -5,12 +5,12 @@ response = {}
 
 class get_parameters():
     def area(self):
-        self.__area = request.args().get("area", "None")
+        self.__area = request.args().get("area", "None", as_text = True)
         if self.__area:
             response["area"] = self.__area
         
     def postal_code(self):
-        self.__postalCode = request.args().get("postalCode", "None")
+        self.__postalCode = request.args().get("postalCode", "None", as_text = True)
         if len(self.__postalCode) == 4:
             response["postalCode"] = self.__postalCode
         else:
