@@ -2,7 +2,6 @@ from typing import Dict
 
 import pandas as pd
 
-
 def splitByRegions(df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     # For Wallonia:
     A = ((df["postalCode"]) >= 1300) & ((df["postalCode"]) < 1499)

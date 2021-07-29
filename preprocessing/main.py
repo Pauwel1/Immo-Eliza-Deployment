@@ -1,13 +1,13 @@
 import pandas as pd
 
-from utils.DataCleaner import DataCleaner
+from utils.cleaning_data import DataCleaner
 from utils.DataRegressor import DataRegressor
 
 # We set and unlimited max of columns to print on console for dataframes
 pd.set_option("display.max_columns", None)
 
 # We read our data recollected from Immobile
-data = pd.read_csv("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/preprocessing/housing-data.csv", index_col=0)
+data = pd.read_csv("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/preprocessing/utils/housing-data.csv", index_col=0)
 
 # Create a new object DataCleaner to clean our data
 # and visualize it

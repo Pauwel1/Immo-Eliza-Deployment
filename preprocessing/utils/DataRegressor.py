@@ -57,7 +57,7 @@ class DataRegressor:
             X, y, test_size=0.10, random_state=42
         )
 
-        # Se fit our regression model to the train data
+        # We fit our regression model to the train data
         self.regressor.fit(X_train, y_train)
 
         # print scores
