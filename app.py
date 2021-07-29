@@ -4,7 +4,7 @@
 
 import os
 from flask import Flask, request, jsonify
-from model.schemas import get_parameters
+from preprocessing.schemas import get_parameters
 
 
 app = Flask(__name__)
