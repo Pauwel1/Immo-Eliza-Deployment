@@ -21,7 +21,7 @@ dataRegressor = DataRegressor(df)
 dataRegressor.trainModel()
 
 # Suppose that our first 1000 rows of the same dataframe are a new dataframe
-data = pd.read_csv("assets/housing-data.csv", index_col=0).head(1000)
+data = pd.read_csv("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/preprocessing/utils/housing-data.csv", index_col=0).head(1000)
 
 # We cleaned as our ancient dataframe used to train the model
 # in a new data cleaner

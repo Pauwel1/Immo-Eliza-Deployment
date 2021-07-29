@@ -38,15 +38,15 @@ class DataRegressor:
         # our model to do better predictions
         self.df = self.rescale(self.df)
 
-        plt.figure()
-        plt.scatter(self.df.area, self.df.price, color="b")
-        plt.title("Rescaled sqrtArea vs logPrice")
-        plt.xticks(rotation=40)
-        plt.xlabel("sqrtArea")
-        plt.ylabel("logPrice")
-        plt.tight_layout()
-        plt.show()
-        plt.savefig("assets/Rescaled sqrtArea vs logPrice", transparent=True)
+        # plt.figure()
+        # plt.scatter(self.df.area, self.df.price, color="b")
+        # plt.title("Rescaled sqrtArea vs logPrice")
+        # plt.xticks(rotation=40)
+        # plt.xlabel("sqrtArea")
+        # plt.ylabel("logPrice")
+        # plt.tight_layout()
+        # plt.show()
+        # plt.savefig("assets/Rescaled sqrtArea vs logPrice", transparent=True)
 
         # We split our target and our features in numpy arrays
         y = self.df["price"].to_numpy()
@@ -68,25 +68,25 @@ class DataRegressor:
         # Make predictions on test datasets
         predictions = self.regressor.predict(X_test)
 
-        # Print the results
-        plt.figure()
-        plt.scatter(y_test, predictions, color="b")
-        plt.title("predictions VS y_test")
-        plt.xlabel("y_test")
-        plt.ylabel("predictions")
-        plt.savefig("assets/predictions VS y_test.png", transparent=True)
+        # # Print the results
+        # plt.figure()
+        # plt.scatter(y_test, predictions, color="b")
+        # plt.title("predictions VS y_test")
+        # plt.xlabel("y_test")
+        # plt.ylabel("predictions")
+        # plt.savefig("assets/predictions VS y_test.png", transparent=True)
 
-        plt.figure()
-        plt.scatter(X_test[:, 1] ** 2, np.exp(y_test), color="r")
-        plt.scatter(X_test[:, 1] ** 2, np.exp(predictions), color="b")
-        plt.title("predictions vs original data")
-        plt.legend(["predictions", "original data"])
-        plt.xlabel("area")
-        plt.ylabel("price")
-        plt.savefig(
-            "assets/predictions vs original data.png", transparent=True
-        )
-        plt.show()
+        # plt.figure()
+        # plt.scatter(X_test[:, 1] ** 2, np.exp(y_test), color="r")
+        # plt.scatter(X_test[:, 1] ** 2, np.exp(predictions), color="b")
+        # plt.title("predictions vs original data")
+        # plt.legend(["predictions", "original data"])
+        # plt.xlabel("area")
+        # plt.ylabel("price")
+        # plt.savefig(
+        #     "assets/predictions vs original data.png", transparent=True
+        # )
+        # plt.show()
 
     def predict(self, df):
         """
@@ -105,23 +105,23 @@ class DataRegressor:
         print("score", self.regressor.score(X, y))
         predictions = self.regressor.predict(X)
 
-        plt.figure()
-        plt.scatter(y, predictions, color="r")
-        plt.title("predictions VS y")
-        plt.xlabel("y_test")
-        plt.ylabel("predictions")
-        plt.savefig("assets/predictions VS y.png")
+        # plt.figure()
+        # plt.scatter(y, predictions, color="r")
+        # plt.title("predictions VS y")
+        # plt.xlabel("y_test")
+        # plt.ylabel("predictions")
+        # plt.savefig("assets/predictions VS y.png")
 
-        plt.figure()
-        plt.scatter(X[:, 1] ** 2, np.exp(predictions), color="b")
-        plt.scatter(X[:, 1] ** 2, np.exp(y), color="r")
-        plt.title("predictions vs data")
-        plt.legend(["predictions", "original data"])
-        plt.xlabel("area")
-        plt.ylabel("price")
-        plt.tight_layout()
-        plt.savefig("assets/predictions vs data.png")
-        plt.show()
+        # plt.figure()
+        # plt.scatter(X[:, 1] ** 2, np.exp(predictions), color="b")
+        # plt.scatter(X[:, 1] ** 2, np.exp(y), color="r")
+        # plt.title("predictions vs data")
+        # plt.legend(["predictions", "original data"])
+        # plt.xlabel("area")
+        # plt.ylabel("price")
+        # plt.tight_layout()
+        # plt.savefig("assets/predictions vs data.png")
+        # plt.show()
 
         return np.exp(self.regressor.predict(X))
 
