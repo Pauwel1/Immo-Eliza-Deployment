@@ -120,34 +120,34 @@ class DataCleaner:
 
         return self.df.reset_index(drop=True)
 
-    def visualize(self):
-        """
-        This method will plot the heatmap correlation and the scatter
-         plot between the different features and the target price
-        :return: None
-        """
+    # def visualize(self):
+    #     """
+    #     This method will plot the heatmap correlation and the scatter
+    #      plot between the different features and the target price
+    #     :return: None
+    #     """
 
-        # plotting the correlation heatmap
-        plt.figure()
-        features = self.df.drop("postalCode", axis=1)
-        sns.heatmap(
-            features.corr()[["price"]], center=0, annot=True, cmap="YlGnBu"
-        )
-        plt.tight_layout()
-        plt.show()
-        plt.savefig("assets/Correlation map.png", transparent=True)
+    #     # plotting the correlation heatmap
+    #     plt.figure()
+    #     features = self.df.drop("postalCode", axis=1)
+    #     sns.heatmap(
+    #         features.corr()[["price"]], center=0, annot=True, cmap="YlGnBu"
+    #     )
+    #     plt.tight_layout()
+    #     plt.show()
+    #     plt.savefig("assets/Correlation map.png", transparent=True)
 
-        # Plotting all variables respect to price
-        for feature in self.df.columns:
-            if feature != "price":
-                plt.figure()
-                sns.scatterplot(x=feature, y="price", data=self.df, color="b")
-                plt.title(feature + " vs price")
-                plt.xlabel(feature)
-                plt.ylabel("price")
-                plt.xticks(rotation=40)
-                plt.tight_layout()
-                plt.savefig(
-                    "assets/" + feature + " vs price.png", transparent=True
-                )
-                plt.show()
+    #     # Plotting all variables respect to price
+    #     for feature in self.df.columns:
+    #         if feature != "price":
+    #             plt.figure()
+    #             sns.scatterplot(x=feature, y="price", data=self.df, color="b")
+    #             plt.title(feature + " vs price")
+    #             plt.xlabel(feature)
+    #             plt.ylabel("price")
+    #             plt.xticks(rotation=40)
+    #             plt.tight_layout()
+    #             plt.savefig(
+    #                 "assets/" + feature + " vs price.png", transparent=True
+    #             )
+    #             plt.show()
