@@ -1,22 +1,13 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import numpy as np
 
-class DataCleaner:
-    def __init__(self):
-        self.df = pd.DataFrame
+class Preprocess:
 
-    def clean(
-        self, df: pd.DataFrame, visualize_flag: bool = False
-    ) -> pd.DataFrame:
+    def clean(self, df = pd.DataFrame, isTrainingSet = bool) -> pd.DataFrame:
         """
         This method will clean the dataframe deleting duplicated rows,
-        fixing errors, eliminating outliers. If visualize_flag set
-        will plot correlation map and relationships between
-         the variables and the target price
+        fixing errors, eliminating outliers.
         :param df: dataframe to clean
-        :param visualize_flag: Will plot all relationships with variable price
-        :return: cleaned dataframe
         """
         self.df = df
 
@@ -50,21 +41,18 @@ class DataCleaner:
             subset=["area", "price"], keep="last"
         )
 
-        # cleaning features with less than 5 occurrences
-        features = [
-            "postalCode",
-            "facadeCount",
-            "subtypeProperty",
-            "BedroomsCount",
-        ]
-        for feature in features:
-            self.df = self.df[
-                self.df[feature].map(self.df[feature].value_counts()) > 5
+        if isTrainingSet == True:
+            # cleaning features with less than 5 occurrences
+            features = [
+                "postalCode",
+                "facadeCount",
+                "subtypeProperty",
+                "BedroomsCount",
             ]
-
-        # Visualize relations between the variables throughout plots
-        if visualize_flag:
-            self.visualize()
+            for feature in features:
+                self.df = self.df[
+                    self.df[feature].map(self.df[feature].value_counts()) > 5
+                ]
 
         # Dropping outliers
         self.df = self.df[self.df["price"] < 6000000]
@@ -112,3 +100,38 @@ class DataCleaner:
             del self.df[feature]
 
         return self.df.reset_index(drop=True)
+
+    def rescale(self, df = pd.DataFrame):
+        """This static method will standardize some of the features,
+        all the areas (square meter) will be rescaled into their square root
+        and the price into its logarithm
+        :param df: cleaned data frame to resale
+        :return: rescaleded dataframe
+        """
+        self.df = df
+
+        df["price"] = np.log(df["price"])
+        df["area"] = np.sqrt(df["area"])
+        df["outsideSpace"] = np.sqrt(df["outsideSpace"])
+        df["landSurface"] = np.sqrt(df["landSurface"])
+
+        return df
+
+    def adjustToTrainedModel(self, df, isTrainingset):
+        """
+        This method fit the new data into the format of the X dataset from
+         the model to be able to predict using the model of the regressor
+        :param df: new dataframe to fit into the X format.
+        :return: None
+        """
+
+        if isTrainingset == False:
+            # We create a new data frame with the columns of the dataframe used to
+            # train the model
+            self.newData = pd.DataFrame(columns=self.df.columns.to_list())
+
+            # We append our new data to this dataframe
+            self.newData = self.newData.append(df)
+
+            # Fill all the nan values with zeros
+            self.newData.fillna(0, inplace=True)

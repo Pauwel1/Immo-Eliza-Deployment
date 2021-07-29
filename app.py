@@ -3,7 +3,7 @@
 ### Pauwel De Wilde ###
 
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from preprocessing.schemas import get_parameters
 
 
