@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import joblib
-from cleaning_data import DataCleaner
+from cleaner import DataCleaner
 
 class Model:
     def __init__(self):
@@ -13,7 +13,7 @@ class Model:
         futures predictions
         :param df: cleaned dataframe to train our model
         """
-        self.comumns = []
+        self.columns = []
         self.regressor = LinearRegression()
         self.fitModel()
 
