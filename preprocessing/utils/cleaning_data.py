@@ -2,9 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from realStateBelgiumStats import splitByRegions, createDataFrameStat
-
-
 class DataCleaner:
     def __init__(self):
         self.df = pd.DataFrame
@@ -96,9 +93,6 @@ class DataCleaner:
             axis=1,
         )
 
-        dict = splitByRegions(self.df)
-        for key, df in dict.items():
-            createDataFrameStat(self.df, df, key)
 
         # Transform  variables into features
         features = [
