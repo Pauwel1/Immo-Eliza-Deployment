@@ -8,9 +8,10 @@ from preprocessing.cleaner import Preprocessor
 class Predictor:
     def __init__(self):
         self.newData = pd.DataFrame()
-        self.model = joblib.load("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/model/model.pkl")
+        self.model = joblib.load("model/model.pkl")
 
     def predict(self, newData : dict):
+        print(newData)
         newData = pd.DataFrame(newData, index = [0])
         preprocessor = Preprocessor()
         newData = preprocessor.clean(newData, isTrainingSet = False)

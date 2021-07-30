@@ -4,6 +4,7 @@
 
 # schemas to get the parameters seperately
 from flask import Flask, request, abort
+from flask.scaffold import F
 
 app = Flask(__name__)
 
@@ -70,11 +71,47 @@ class get_parameters():
             return landSurface
         else:
             abort(400, description = "Please give the surface of the lot")
-    
-    # the non-oblique features, expressed in 1 or 0
-    def non_oblique(feature):
-        spec = request.args.get(feature, None)
-        if spec == 1:
+
+    def has_fireplace():
+        hasFireplace = request.args.get("hasFireplace")
+        if hasFireplace == 1:
             return 1
         else:
             return 0
+    
+    def has_swimming_pool():
+        hasSwimmingPool = request.args.get("hasSwimmingPool")
+        if hasSwimmingPool == 1:
+            return 1
+        else:
+            return 0
+    
+    def has_garden():
+        hasGarden = request.args.get("hasGarden")
+        if hasGarden == 1:
+            return 1
+        else:
+            return 0
+    
+    def has_terrace():
+        hasTerrace = request.args.get("hasTerrace")
+        if hasTerrace == 1:
+            return 1
+        else:
+            return 0
+    
+    def has_fully_equiped_kitchen():
+        hasFullyEquippedKitchen = request.args.get("hasFullyEquippedKitchen")
+        if hasFullyEquippedKitchen == 1:
+            return 1
+        else:
+            return 0
+
+    # the non-oblique features, expressed in 1 or 0
+    def non_oblique(feature):
+        for f in feature:
+            spec = request.args.get(f, None)
+            if spec == 1:
+                return 1
+            else:
+                return 0

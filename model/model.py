@@ -15,6 +15,7 @@ class Model:
         """
         self.columns = []
         self.regressor = LinearRegression()
+        self.newDf = pd.DataFrame()
         self.fitModel()
 
     def fitModel(self):
@@ -61,12 +62,16 @@ class Model:
         """
         # We create a new data frame with the columns of the dataframe used to
         # train the model
-        self.newColumns = pd.DataFrame(columns = self.columns)
+        self.newDf = pd.DataFrame(columns = self.columns)
+
+        print(self.newDf)
+        print(df)
+        print(self.columns)
 
         # We append our new data to this dataframe
-        self.finalData = self.newColumns.append(df)
+        finalData = self.newDf.append(df)
 
         # Fill all the nan values with zeros
-        self.finalData.fillna(0, inplace=True)
+        finalData.fillna(0, inplace=True)
 
-        return self.finalData
+        return finalData

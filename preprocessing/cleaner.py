@@ -78,23 +78,30 @@ class Preprocessor:
             self.df.facadeCount.fillna(0, inplace=True)
 
         # Transform  variables into features
-        features = [
+        categorical_features = [
             "postalCode",
             "buildingCondition",
             "subtypeProperty",
-            "fireplaceExists",
+            "hasFireplace",
             "hasSwimmingPool",
             "hasGarden",
             "hasTerrace",
             "hasFullyEquippedKitchen",
         ]
-        for feature in features:
-            cv_dummies = pd.get_dummies(self.df[feature])
-            if isTrainingSet == True:
-                if cv_dummies.columns.__len__() < 3:
-                    cv_dummies.columns = [feature + "True", feature + "False"]
-            self.df = pd.concat([self.df, cv_dummies], axis=1)
-            del self.df[feature]
+
+        for item in categorical_features:
+            cv_dummies = pd.get_dummies(df[item])
+            if item.startswith("has"):
+                if cv_dummies.columns.__len__() == 1:
+                    if cv_dummies.iloc[0, 0] == 0:
+                        cv_dummies.columns = [item + "False"]
+                    else:
+                        cv_dummies.columns = [item + "True"]
+                else:
+                    cv_dummies.columns = [item + "False", item + "True"]
+            df = pd.concat([df, cv_dummies], axis=1)
+            del df[item]
+
 
         self.rescale(isTrainingSet)
         
