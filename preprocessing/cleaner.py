@@ -1,4 +1,3 @@
-from flask.scaffold import F
 import pandas as pd
 import numpy as np
 
