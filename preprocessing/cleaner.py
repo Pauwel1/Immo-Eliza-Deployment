@@ -1,3 +1,4 @@
+from flask.scaffold import F
 import pandas as pd
 import numpy as np
 
@@ -117,7 +118,7 @@ class Preprocess:
 
         return df
 
-    def adjustToTrainedModel(self, df, isTrainingset):
+    def adjustToTrainedModel(self, df = pd.DataFrame, isTrainingSet = False):
         """
         This method fit the new data into the format of the X dataset from
          the model to be able to predict using the model of the regressor
@@ -125,7 +126,8 @@ class Preprocess:
         :return: None
         """
 
-        if isTrainingset == False:
+        if isTrainingSet == False:
+
             # We create a new data frame with the columns of the dataframe used to
             # train the model
             self.newData = pd.DataFrame(columns=self.df.columns.to_list())

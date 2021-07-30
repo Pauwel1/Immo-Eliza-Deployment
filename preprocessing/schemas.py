@@ -3,7 +3,7 @@
 ### Pauwel De Wilde ###
 
 # schemas to get the parameters seperately
-from flask import Flask, request, jsonify, abort
+from flask import Flask, request, abort
 
 app = Flask(__name__)
 

@@ -5,11 +5,11 @@
 import os
 from flask import Flask, jsonify
 from preprocessing.schemas import get_parameters
-
+from predict.prediction import Prediction
 
 app = Flask(__name__)
 
-df = {}
+input = {}
 
 @app.route("/", methods = ["GET"])
 def check():
@@ -17,22 +17,23 @@ def check():
 
 @app.route("/predict/", methods = ["GET", "POST"])
 def respond():
-    # obliques = ["area", "postalCode", "subtypeProperty", "buildingCondition"]
-    # try InvalidUsage(Exception):
-
-    df["area"] = get_parameters.area()
-    df["postalCode"] = get_parameters.postal_code()
-    df["subtypProperty"] = get_parameters.subtype_property()
-    df["buildingCondition"] = get_parameters.building_condition()
+    input["area"] = get_parameters.area()
+    input["postalCode"] = get_parameters.postal_code()
+    input["subtypProperty"] = get_parameters.subtype_property()
+    input["buildingCondition"] = get_parameters.building_condition()
 
     features = ["fireplaceExists", "hasSwimmingPool", "hasGarden", "hasTerrace", "hasFullyEquippedKitchen"]
     for f in features:
-        df[f] = get_parameters.non_oblique(f)
+        input[f] = get_parameters.non_oblique(f)
 
-    if df.values() == None:
+    if input.values() == None:
         return jsonify[{"ERROR"} : {"Not all values were entered correctly"}]
     else:
-        return jsonify(df)
+        return jsonify(input)
+
+def predict(input):
+    prediction = Prediction(input)
+    return jsonify(prediction)
 
 
 if __name__ == "__main__":
