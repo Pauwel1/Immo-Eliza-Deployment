@@ -82,7 +82,7 @@ class Preprocessor:
             "postalCode",
             "buildingCondition",
             "subtypeProperty",
-            "hasFireplace",
+            "fireplaceExists",
             "hasSwimmingPool",
             "hasGarden",
             "hasTerrace",

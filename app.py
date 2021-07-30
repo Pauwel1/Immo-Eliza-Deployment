@@ -21,7 +21,7 @@ def respond():
     input["postalCode"] = get_parameters.postal_code()
     input["subtypeProperty"] = get_parameters.subtype_property()
     input["buildingCondition"] = get_parameters.building_condition()
-    input["hasFireplace"] = get_parameters.has_fireplace()
+    input["fireplaceExists"] = get_parameters.fireplace_exists()
     input["hasGarden"] = get_parameters.has_garden()
     input["hasSwimmingPool"] = get_parameters.has_swimming_pool()
     input["hasTerrace"] = get_parameters.has_swimming_pool()

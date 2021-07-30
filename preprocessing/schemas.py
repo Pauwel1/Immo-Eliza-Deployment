@@ -72,9 +72,9 @@ class get_parameters():
         else:
             abort(400, description = "Please give the surface of the lot")
 
-    def has_fireplace():
-        hasFireplace = request.args.get("hasFireplace")
-        if hasFireplace == 1:
+    def fireplace_exists():
+        fireplaceExists = request.args.get("fireplaceExists")
+        if fireplaceExists == 1:
             return 1
         else:
             return 0
