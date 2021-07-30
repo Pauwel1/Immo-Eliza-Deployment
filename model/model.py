@@ -59,15 +59,14 @@ class Model:
         :param df: new dataframe to fit into the X format.
         :return: None
         """
-
         # We create a new data frame with the columns of the dataframe used to
         # train the model
-        self.newData = pd.DataFrame(columns = self.columns)
+        self.newColumns = pd.DataFrame(columns = self.columns)
 
         # We append our new data to this dataframe
-        self.newData = self.newData.append(self.newData)
+        self.finalData = self.newColumns.append(df)
 
         # Fill all the nan values with zeros
-        self.newData.fillna(0, inplace=True)
+        self.finalData.fillna(0, inplace=True)
 
-        return self.newData
+        return self.finalData

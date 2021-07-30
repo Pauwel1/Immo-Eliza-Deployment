@@ -97,7 +97,7 @@ class Preprocessor:
             del self.df[feature]
 
         self.rescale(isTrainingSet)
-
+        
         return self.df.reset_index(drop=True)
 
     def rescale(self, isTrainingSet : bool):

@@ -71,10 +71,10 @@ class get_parameters():
         else:
             abort(400, description = "Please give the surface of the lot")
     
-    # the non-oblique features
+    # the non-oblique features, expressed in 1 or 0
     def non_oblique(feature):
         spec = request.args.get(feature, None)
-        if spec:
-            return spec
+        if spec == 1:
+            return 1
         else:
             return 0
