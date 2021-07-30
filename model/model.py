@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from preprocessing.cleaner import Preprocess
+from preprocessing.cleaner import Preprocessor
 import joblib
 
 class Model:
@@ -28,7 +28,7 @@ class Model:
         # our model to do better predictions
 
         df = pd.read_csv("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/preprocessing/housing-data.csv", index_col=0)
-        preprocessor = Preprocess()
+        preprocessor = Preprocessor()
         df = preprocessor.clean(df, isTrainingSet = True)
 
         self.columns = df.columns.to_list()
@@ -51,3 +51,23 @@ class Model:
         print("Test score", self.regressor.score(X_test, y_test))
 
         joblib.dump(self, 'model/model.pkl')
+
+    def adjustToTrainingset(self, df : pd.DataFrame):
+        """
+        This method fit the new data into the format of the X dataset from
+         the model to be able to predict using the model of the regressor
+        :param df: new dataframe to fit into the X format.
+        :return: None
+        """
+
+        # We create a new data frame with the columns of the dataframe used to
+        # train the model
+        self.newData = pd.DataFrame(columns = self.columns)
+
+        # We append our new data to this dataframe
+        self.newData = self.newData.append(self.newData)
+
+        # Fill all the nan values with zeros
+        self.newData.fillna(0, inplace=True)
+
+        return self.newData

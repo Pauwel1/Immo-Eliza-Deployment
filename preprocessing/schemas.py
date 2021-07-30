@@ -50,6 +50,27 @@ class get_parameters():
         else:
             abort(400, description = "Choose one of the building condition options")
     
+    def facade_count():
+        facadeCount = request.args.get("facadeCount", None)
+        if facadeCount:
+            return facadeCount
+        else:
+            return 2
+
+    def outside_space():
+        outsideSpace = request.args.get("outsideSpace", None)
+        if outsideSpace:
+            return outsideSpace
+        else:
+            abort(400, description = "Please enter the available space outside the house (terrace + garden)")
+
+    def land_surface():
+        landSurface = request.args.get("landSurface", None)
+        if landSurface:
+            return landSurface
+        else:
+            abort(400, description = "Please give the surface of the lot")
+    
     # the non-oblique features
     def non_oblique(feature):
         spec = request.args.get(feature, None)

@@ -1,21 +1,24 @@
 import pandas as pd
+import numpy as np
 import joblib
-from sklearn.linear_model import LinearRegression
 
-from preprocessing.cleaner import Preprocess
+from preprocessing.cleaner import Preprocessor
+from model.model import Model
 
 
-class Prediction:
-    def __init__(self, newData = pd.DataFrame):
-        self.newData = newData
-        self.model = joblib.load("model/model.pkl")
-        self.prediction()
+class Predictor:
+    def __init__(self):
+        self.newData = pd.DataFrame()
+        self.model = Model()
+        self.columns = []
 
-    def prediction(self, newData = pd.Dataframe):
-        newData = Preprocess(newData, isTrainingSet = False)
-        model = self.model.drop(["price"], axis=1)
-        regressor = LinearRegression(self.model)
-        
-        y = model.regressor.predict(newData)
-        
-        return y
+    def predict(self, newData : dict):
+        newData = pd.DataFrame(newData, index = [0])
+        preprocessor = Preprocessor()
+        newData = preprocessor.clean(newData, isTrainingSet = False)
+        newData = self.model.adjustToTrainingset(newData)
+
+        X = newData.drop(["price"], axis = 1).to_numpy()
+        y = self.model.regressor.predict(newData)
+
+        return np.exp(y)
