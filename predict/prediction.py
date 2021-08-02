@@ -8,7 +8,7 @@ from preprocessing.cleaner import Preprocessor
 class Predictor():
     def __init__(self):
         self.newData = pd.DataFrame()
-        self.model = joblib.load("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/model/model.pkl")
+        self.model = joblib.load("model/model.pkl")
 
     def predict(self, newData : dict):
         newData = pd.DataFrame.from_dict(newData, orient = "index").T

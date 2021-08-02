@@ -102,23 +102,7 @@ class Preprocessor:
             df = pd.concat([df, cv_dummies], axis=1)
             del df[item]
 
-
         self.rescale(isTrainingSet)
-
-        # lst = [
-        #     "APARTMENT", "HOUSE", "MANSION", 
-        #     "VILLA", "STUDIO", "HOUSE_GROUP", 
-        #     "EXCEPTIONAL_PROPERTY", "MIXED_USE_BUILDING", "APARTMENT_BLOCK",
-        #     "BUNGALOW", "CASTLE", "COUNTRY_HOUSE", 
-        #     "TOWN_HOUSE", "MANOR_HOUSE", "GROUND_FLOOR",
-        #     "PENTHOUSE", "KOT", "CHALET",
-        #     "FARMHOUSE", "PAVILION", "DUPLEX",
-        #     "LOFT", "SERVICE_FLAT", "TRIPLEX",
-        #     "GOOD", "TO_RESTORE", "TO_BE_DONE_UP", 
-        #     "AS_NEW", "JUST_RENOVATED", "TO_RENOVATE"
-        #     ]
-        
-        # self.df = df[df != lst]
         
         return self.df.reset_index(drop=True)
 

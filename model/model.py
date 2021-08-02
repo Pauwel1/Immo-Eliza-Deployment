@@ -28,7 +28,7 @@ class Model:
         # observation of the linear relationship between them and help
         # our model to do better predictions
 
-        df = pd.read_csv("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/preprocessing/housing-data.csv", index_col=0)
+        df = pd.read_csv("preprocessing/housing-data.csv", index_col=0)
         preprocessor = Preprocessor()
         df = preprocessor.clean(df, isTrainingSet = True)
 
@@ -51,7 +51,7 @@ class Model:
         print("Train score", self.regressor.score(X_train, y_train))
         print("Test score", self.regressor.score(X_test, y_test))
 
-        joblib.dump(self, '/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/model/model.pkl')
+        joblib.dump(self, 'model/model.pkl')
 
     def adjustToTrainingset(self, df : pd.DataFrame):
         """
