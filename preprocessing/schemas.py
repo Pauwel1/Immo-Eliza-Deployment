@@ -3,20 +3,24 @@
 ### Pauwel De Wilde ###
 
 # schemas to get the parameters seperately
+import os
 from flask import Flask, request, abort
-from flask.scaffold import F
+import pandas as pd
 
 app = Flask(__name__)
 
 @app.route("/predict/", methods = ["GET"])
-class get_parameters():
+class get_parameters:
+    def __init__(self):
+        self.input = pd.DataFrame()
+
     def area():
         area = request.args.get("area", None)
         if (area == None):
             abort(400, description = "Area not given (only numbers separated by a '.' are allowed)")
         else:
             return area
-        
+
     def postal_code():
         postalCode = request.args.get("postalCode", None)
         if len(postalCode) == 4:
@@ -51,6 +55,13 @@ class get_parameters():
         else:
             abort(400, description = "Choose one of the building condition options")
     
+    def bedrooms_count():
+        BedroomsCount = request.args.get("BedroomsCount", None)
+        if BedroomsCount:
+            return BedroomsCount
+        else:
+            return 0
+
     def facade_count():
         facadeCount = request.args.get("facadeCount", None)
         if facadeCount:
@@ -74,44 +85,40 @@ class get_parameters():
 
     def fireplace_exists():
         fireplaceExists = request.args.get("fireplaceExists")
-        if fireplaceExists == 1:
+        if fireplaceExists == "yes":
             return 1
         else:
             return 0
     
     def has_swimming_pool():
         hasSwimmingPool = request.args.get("hasSwimmingPool")
-        if hasSwimmingPool == 1:
+        if hasSwimmingPool == "yes":
             return 1
         else:
             return 0
     
     def has_garden():
         hasGarden = request.args.get("hasGarden")
-        if hasGarden == 1:
+        if hasGarden == "yes":
             return 1
         else:
             return 0
     
     def has_terrace():
         hasTerrace = request.args.get("hasTerrace")
-        if hasTerrace == 1:
+        if hasTerrace == "yes":
             return 1
         else:
             return 0
     
     def has_fully_equiped_kitchen():
         hasFullyEquippedKitchen = request.args.get("hasFullyEquippedKitchen")
-        if hasFullyEquippedKitchen == 1:
+        if hasFullyEquippedKitchen == "yes":
             return 1
         else:
             return 0
 
-    # the non-oblique features, expressed in 1 or 0
-    def non_oblique(feature):
-        for f in feature:
-            spec = request.args.get(f, None)
-            if spec == 1:
-                return 1
-            else:
-                return 0
+if __name__ == "main":
+    app.run()
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host = "0.0.0.0", threaded = True, port = port)

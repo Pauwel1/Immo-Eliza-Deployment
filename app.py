@@ -21,6 +21,7 @@ def respond():
     input["postalCode"] = get_parameters.postal_code()
     input["subtypeProperty"] = get_parameters.subtype_property()
     input["buildingCondition"] = get_parameters.building_condition()
+    input["BedroomsCount"] = get_parameters.bedrooms_count()
     input["fireplaceExists"] = get_parameters.fireplace_exists()
     input["hasGarden"] = get_parameters.has_garden()
     input["hasSwimmingPool"] = get_parameters.has_swimming_pool()
@@ -29,7 +30,6 @@ def respond():
     input["outsideSpace"] = float(get_parameters.outside_space())
     input["landSurface"] = float(get_parameters.land_surface())
     input["hasFullyEquippedKitchen"] = get_parameters.has_fully_equiped_kitchen()
-
 
     y = predictor.predict(input)
     return jsonify[{"Predicted price"} : {y}]

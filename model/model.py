@@ -51,7 +51,7 @@ class Model:
         print("Train score", self.regressor.score(X_train, y_train))
         print("Test score", self.regressor.score(X_test, y_test))
 
-        joblib.dump(self, 'model/model.pkl')
+        joblib.dump(self, '/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/model/model.pkl')
 
     def adjustToTrainingset(self, df : pd.DataFrame):
         """
@@ -64,8 +64,6 @@ class Model:
         # train the model
         self.newDf = pd.DataFrame(columns = self.columns)
 
-        print(self.newDf)
-        print(df)
         print(self.columns)
 
         # We append our new data to this dataframe
@@ -73,5 +71,7 @@ class Model:
 
         # Fill all the nan values with zeros
         finalData.fillna(0, inplace=True)
+
+        finalData = finalData.apply(lambda x: pd.to_numeric(x, errors='coerce')).dropna()
 
         return finalData

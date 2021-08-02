@@ -104,6 +104,21 @@ class Preprocessor:
 
 
         self.rescale(isTrainingSet)
+
+        # lst = [
+        #     "APARTMENT", "HOUSE", "MANSION", 
+        #     "VILLA", "STUDIO", "HOUSE_GROUP", 
+        #     "EXCEPTIONAL_PROPERTY", "MIXED_USE_BUILDING", "APARTMENT_BLOCK",
+        #     "BUNGALOW", "CASTLE", "COUNTRY_HOUSE", 
+        #     "TOWN_HOUSE", "MANOR_HOUSE", "GROUND_FLOOR",
+        #     "PENTHOUSE", "KOT", "CHALET",
+        #     "FARMHOUSE", "PAVILION", "DUPLEX",
+        #     "LOFT", "SERVICE_FLAT", "TRIPLEX",
+        #     "GOOD", "TO_RESTORE", "TO_BE_DONE_UP", 
+        #     "AS_NEW", "JUST_RENOVATED", "TO_RENOVATE"
+        #     ]
+        
+        # self.df = df[df != lst]
         
         return self.df.reset_index(drop=True)
 
@@ -114,8 +129,13 @@ class Preprocessor:
         :param df: cleaned data frame to resale
         :return: rescaleded dataframe
         """
-        self.df["area"] = np.sqrt(self.df["area"])
-        self.df["outsideSpace"] = np.sqrt(self.df["outsideSpace"])
-        self.df["landSurface"] = np.sqrt(self.df["landSurface"])
+        if isTrainingSet == False:
+            self.df["area"] = np.array(self.df["area"], dtype = np.float64)
+            self.df["outsideSpace"] = np.array(self.df["outsideSpace"], dtype = np.float64)
+            self.df["landSurface"] = np.array(self.df["landSurface"], dtype = np.float64)
+        
         if isTrainingSet == True:
+            self.df["area"] = np.sqrt(self.df["area"])
+            self.df["outsideSpace"] = np.sqrt(self.df["outsideSpace"])
+            self.df["landSurface"] = np.sqrt(self.df["landSurface"])
             self.df["price"] = np.log(self.df["price"])

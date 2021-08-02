@@ -5,14 +5,13 @@ import joblib
 from preprocessing.cleaner import Preprocessor
 
 
-class Predictor:
+class Predictor():
     def __init__(self):
         self.newData = pd.DataFrame()
-        self.model = joblib.load("model/model.pkl")
+        self.model = joblib.load("/Users/pauwel/Documents/GitHub/Immo-Eliza-Deployment/model/model.pkl")
 
     def predict(self, newData : dict):
-        print(newData)
-        newData = pd.DataFrame(newData, index = [0])
+        newData = pd.DataFrame.from_dict(newData, orient = "index").T
         preprocessor = Preprocessor()
         newData = preprocessor.clean(newData, isTrainingSet = False)
         newData = self.model.adjustToTrainingset(newData)
