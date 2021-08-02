@@ -4,10 +4,13 @@
 
 import os
 from flask import Flask, jsonify
+from flask_cors import CORS
+
 from preprocessing.schemas import get_parameters
 from predict.prediction import Predictor
 
 app = Flask(__name__)
+CORS(app)
 
 input = {}
 
