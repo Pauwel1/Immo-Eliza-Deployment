@@ -15,10 +15,10 @@ input = {}
 def check():
     return "Alive!"
 
-@app.route("/predict/", methods = ["GET", "POST"])
+@app.route("/predict/", methods = ["POST"])
 def respond():
     input["area"] = float(get_parameters.area())
-    input["postalCode"] = get_parameters.postal_code()
+    input["postalCode"] = int(get_parameters.postal_code())
     input["subtypeProperty"] = get_parameters.subtype_property()
     input["buildingCondition"] = get_parameters.building_condition()
     input["BedroomsCount"] = get_parameters.bedrooms_count()
@@ -32,7 +32,7 @@ def respond():
     input["hasFullyEquippedKitchen"] = get_parameters.has_fully_equiped_kitchen()
 
     y = predictor.predict(input)
-    return jsonify[{"Predicted price"} : {y}]
+    return jsonify({"prediction" : f"{y}"})
 
 if __name__ == "__main__":
     predictor = Predictor()

@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from preprocessing.cleaner import Preprocessor
 import joblib
 
+
 class Model:
     def __init__(self):
         """
@@ -30,7 +31,7 @@ class Model:
 
         df = pd.read_csv("preprocessing/housing-data.csv", index_col=0)
         preprocessor = Preprocessor()
-        df = preprocessor.clean(df, isTrainingSet = True)
+        df = preprocessor.clean(df, isTrainingSet=True)
 
         self.columns = df.columns.to_list()
 
@@ -53,7 +54,7 @@ class Model:
 
         joblib.dump(self, 'model/model.pkl')
 
-    def adjustToTrainingset(self, df : pd.DataFrame):
+    def adjustToTrainingset(self, df: pd.DataFrame):
         """
         This method fit the new data into the format of the X dataset from
          the model to be able to predict using the model of the regressor
@@ -62,16 +63,11 @@ class Model:
         """
         # We create a new data frame with the columns of the dataframe used to
         # train the model
-        self.newDf = pd.DataFrame(columns = self.columns)
-
-        print(self.columns)
+        self.newDf = pd.DataFrame(columns=self.columns)
 
         # We append our new data to this dataframe
         finalData = self.newDf.append(df)
 
         # Fill all the nan values with zeros
         finalData.fillna(0, inplace=True)
-
-        finalData = finalData.apply(lambda x: pd.to_numeric(x, errors='coerce')).dropna()
-
         return finalData

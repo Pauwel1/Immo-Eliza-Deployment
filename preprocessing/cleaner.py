@@ -90,8 +90,9 @@ class Preprocessor:
         ]
 
         for item in categorical_features:
-            cv_dummies = pd.get_dummies(df[item])
-            if item.startswith("has"):
+            cv_dummies = pd.get_dummies(self.df[item])
+            if item in ("fireplaceExists", "hasSwimmingPool", "hasGarden", "hasTerrace", 
+            "hasFullyEquipedKitchen"):
                 if cv_dummies.columns.__len__() == 1:
                     if cv_dummies.iloc[0, 0] == 0:
                         cv_dummies.columns = [item + "False"]
@@ -99,11 +100,13 @@ class Preprocessor:
                         cv_dummies.columns = [item + "True"]
                 else:
                     cv_dummies.columns = [item + "False", item + "True"]
-            df = pd.concat([df, cv_dummies], axis=1)
-            del df[item]
+            self.df = pd.concat([self.df, cv_dummies], axis=1)
+            del self.df[item]
 
         self.rescale(isTrainingSet)
         
+        print(self.df)
+
         return self.df.reset_index(drop=True)
 
     def rescale(self, isTrainingSet : bool):
@@ -114,9 +117,9 @@ class Preprocessor:
         :return: rescaleded dataframe
         """
         if isTrainingSet == False:
-            self.df["area"] = np.array(self.df["area"], dtype = np.float64)
-            self.df["outsideSpace"] = np.array(self.df["outsideSpace"], dtype = np.float64)
-            self.df["landSurface"] = np.array(self.df["landSurface"], dtype = np.float64)
+            self.df["area"] = np.sqrt(self.df["area"], dtype = np.float64)
+            self.df["outsideSpace"] = np.sqrt(self.df["outsideSpace"], dtype = np.float64)
+            self.df["landSurface"] = np.sqrt(self.df["landSurface"], dtype = np.float64)
         
         if isTrainingSet == True:
             self.df["area"] = np.sqrt(self.df["area"])
