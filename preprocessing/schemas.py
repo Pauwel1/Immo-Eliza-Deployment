@@ -8,6 +8,7 @@ from flask import Flask, request, abort
 import pandas as pd
 
 app = Flask(__name__)
+# If cors error pops up again, maybe add CORS(app) here as well
 
 @app.route("/predict/", methods = ["GET"])
 class get_parameters:
