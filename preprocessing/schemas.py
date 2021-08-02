@@ -67,7 +67,7 @@ class get_parameters:
         if facadeCount:
             return facadeCount
         else:
-            return 2
+            abort(400, description = "Specify the number of facades")
 
     def outside_space():
         outsideSpace = request.args.get("outsideSpace", None)
