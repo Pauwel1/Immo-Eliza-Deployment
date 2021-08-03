@@ -3,16 +3,14 @@
 ### Pauwel De Wilde ###
 
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from preprocessing.schemas import get_parameters
+from preprocessing.schemas import Get_parameters
 from predict.prediction import Predictor
 
 app = Flask(__name__)
 CORS(app)
-
-input = {}
 
 @app.route("/", methods = ["GET"])
 def check():
@@ -20,19 +18,23 @@ def check():
 
 @app.route("/predict/", methods = ["POST"])
 def respond():
-    input["area"] = float(get_parameters.area())
-    input["postalCode"] = int(get_parameters.postal_code())
-    input["subtypeProperty"] = get_parameters.subtype_property()
-    input["buildingCondition"] = get_parameters.building_condition()
-    input["BedroomsCount"] = get_parameters.bedrooms_count()
-    input["fireplaceExists"] = get_parameters.fireplace_exists()
-    input["hasGarden"] = get_parameters.has_garden()
-    input["hasSwimmingPool"] = get_parameters.has_swimming_pool()
-    input["hasTerrace"] = get_parameters.has_swimming_pool()
-    input["facadeCount"] = get_parameters.facade_count()
-    input["outsideSpace"] = float(get_parameters.outside_space())
-    input["landSurface"] = float(get_parameters.land_surface())
-    input["hasFullyEquippedKitchen"] = get_parameters.has_fully_equiped_kitchen()
+    input = {}
+
+    get_params = Get_parameters(request)
+
+    input["area"] = float(get_params.area())
+    input["postalCode"] = int(get_params.postal_code())
+    input["subtypeProperty"] = get_params.subtype_property()
+    input["buildingCondition"] = get_params.building_condition()
+    input["BedroomsCount"] = get_params.bedrooms_count()
+    input["fireplaceExists"] = get_params.fireplace_exists()
+    input["hasGarden"] = get_params.has_garden()
+    input["hasSwimmingPool"] = get_params.has_swimming_pool()
+    input["hasTerrace"] = get_params.has_swimming_pool()
+    input["facadeCount"] = get_params.facade_count()
+    input["outsideSpace"] = float(get_params.outside_space())
+    input["landSurface"] = float(get_params.land_surface())
+    input["hasFullyEquippedKitchen"] = get_params.has_fully_equiped_kitchen()
 
     y = predictor.predict(input)
     return jsonify({"prediction" : f"{y}"})
