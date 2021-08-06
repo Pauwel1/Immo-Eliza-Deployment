@@ -30,11 +30,11 @@ def respond():
     input["fireplaceExists"] = get_params.fireplace_exists()
     input["hasGarden"] = get_params.has_garden()
     input["hasSwimmingPool"] = get_params.has_swimming_pool()
-    input["hasTerrace"] = get_params.has_swimming_pool()
+    input["hasTerrace"] = get_params.has_terrace()
     input["facadeCount"] = get_params.facade_count()
     input["outsideSpace"] = float(get_params.outside_space())
     input["landSurface"] = float(get_params.land_surface())
-    input["hasFullyEquippedKitchen"] = get_params.has_fully_equiped_kitchen()
+    input["hasFullyEquippedKitchen"] = get_params.has_fully_equipped_kitchen()
 
     y = predictor.predict(input)
     return jsonify({"prediction" : f"{y}"})

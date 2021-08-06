@@ -92,7 +92,7 @@ class Preprocessor:
         for item in categorical_features:
             cv_dummies = pd.get_dummies(self.df[item])
             if item in ("fireplaceExists", "hasSwimmingPool", "hasGarden", "hasTerrace", 
-            "hasFullyEquipedKitchen"):
+            "hasFullyEquippedKitchen"):
                 if cv_dummies.columns.__len__() == 1:
                     if cv_dummies.iloc[0, 0] == 0:
                         cv_dummies.columns = [item + "False"]

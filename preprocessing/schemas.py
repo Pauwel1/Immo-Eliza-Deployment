@@ -106,7 +106,7 @@ class Get_parameters:
         else:
             return 0
     
-    def has_fully_equiped_kitchen(self):
+    def has_fully_equipped_kitchen(self):
         hasFullyEquippedKitchen = self.request.args.get("hasFullyEquippedKitchen")
         if hasFullyEquippedKitchen == "yes":
             return 1
